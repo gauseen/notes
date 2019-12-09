@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>函数柯里化</title>
+</head>
+<body>
+<script type="text/javascript">
+    function curry (fn, ...args) {
+      if (args.length >= fn.length) {
+        fn(...args)
+      } else {
+        return (...args2) => curry(fn, ...args, ...args2)
+      }
+    }
+
+    const foo = (a, b, c) => {
+        console.log(a, b, c)
+    }
+
+    curry(foo)(1)(2)(3)
+    curry(foo)(11, 22)(33)
+</script>
+</body>
+</html>

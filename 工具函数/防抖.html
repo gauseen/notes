@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>防抖</title>
+</head>
+<body>
+<script type="text/javascript">
+  let debounce = function (fn, delay = 200) {
+    let timeoutId = null
+
+    return function (...args) {
+      let context = this
+
+      clearTimeout(timeoutId)
+      timeoutId = setTimeout(fn.bind(context, ...args), delay)
+    }
+  }
+
+  function subject (args) {
+    console.log('subject this: ', args, this)
+  }
+
+  let debouncedSub = debounce(subject)
+  let obj = { name: 'obj' }
+  debouncedSub.call(obj, '1')
+  debouncedSub.call(obj, '2')
+
+  setTimeout(debouncedSub.bind(null, 'from setTimeout arg'), 100)
+</script>
+</body>
+</html>

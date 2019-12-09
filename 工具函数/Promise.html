@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Promise2</title>
+</head>
+<body>
+<script type="text/javascript">
+  let pending = 'pending'
+  let fulfilled = 'fulfilled'
+  let rejected = 'rejected'
+  let id = 0
+
+  function Promise2 (fn) {
+    this.id = id++
+    this.state = pending
+    this.result = void 0
+    this.handlers = []
+
+    let resolve = (value) => {
+      changeState(this, fulfilled, value)
+    }
+
+    let reject = (reason) => {
+      changeState(this, rejected, reason)
+    }
+
+    try {
+      fn(resolve, reject)
+    } catch (err) {
+      reject(err)
+    }
+  }
+
+  function changeState (promise, state, result) {
+    if (promise.state !== pending) return
+
+    promise.state = state
+    promise.result = result
+    // debugger
+    promise.handlers.forEach(handler => {
+      dispatchHandler(promise, handler)
+    })
+  }
+
+  Promise2.prototype.then = function (onfulfilled, onRejected) {
+    return new Promise2((resolve, reject) => {
+      let handler = { onfulfilled, onRejected, resolve, reject }
+
+      if (this.state === pending) {
+        this.handlers.push(handler)
+      } else {
+        dispatchHandler(this, handler)
+      }
+
+    })
+  }
+
+  let isFunction = (exp) => typeof exp === 'function'
+
+  let delay = (fn, time = 0) => (...args) => {
+    setTimeout(() => fn(...args), time)
+  }
+
+  let dispatchHandler = delay((promise, handler) => {
+    let { state, result } = promise
+    let { onfulfilled, onRejected, resolve, reject } = handler
+    
+    if (state === fulfilled) {
+      let value = isFunction(onfulfilled) ? onfulfilled(result) : result
+      // debugger
+      resolve(value)
+    } else if (state === rejected) {
+      let reason = isFunction(onRejected) ? onRejected(result) : result
+
+      reject(reason)
+    }
+  })
+
+  let promsie2 = new Promise2((resolve, reject) => {
+    // setTimeout(() => {
+      resolve(1)
+    // }, 100)
+  })
+
+  console.log('start')
+
+  let p3 = promsie2.then((result) => {
+    console.log('result: ', result)
+  }, (reason) => {
+    console.log('reason: ', reason)
+  })
+
+  console.log('p3: ', p3)
+</script>
+</body>
+</html>

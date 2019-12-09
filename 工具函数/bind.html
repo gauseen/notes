@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>bind</title>
+</head>
+<body>
+<script type="text/javascript">
+  Function.prototype.bind2 = function (context, ...args) {
+    let key = Symbol()
+    context[key] = this
+    return function (...arg) {
+      context[key](...args, ...arg)
+      delete context[key]
+    }
+  }
+
+  let obj = { id: 'obj' }
+
+  function foo (...args) {
+    console.log('foo: ', this, args)
+  }
+
+  let fn = foo.bind2(obj, 1)
+  fn(2, 3)
+</script>
+</body>
+</html>

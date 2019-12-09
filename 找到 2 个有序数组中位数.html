@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>找到 2 个有序数组中位数</title>
+</head>
+<body>
+<script type="text/javascript">
+  let list1 = [1, 3, 5]
+  let list2 = [2]
+
+  let allLeng = list2.length + list1.length
+  // 循环最大次数
+  let maxCount = (allLeng / 2) | 0
+
+  let count = 0
+  let prev = null
+  let current = null
+  let result = null
+  
+  while (count <= maxCount) {
+    count++
+    prev = current
+    if (list1.length === 0) {
+      current = list2.shift()
+    } else if (list2.length === 0) {
+      current = list1.shift()
+    } else if (list1[0] < list2[0]) {
+      current = list1.shift()
+    } else {
+      current = list2.shift()
+    }
+  }
+
+  if (allLeng % 2 === 0) { // 偶数个
+    result = (prev + current) / 2
+  } else { // 奇数个
+    result = current
+  }
+
+  console.log(result)
+</script>
+</body>
+</html>

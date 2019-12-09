@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>2 数之和</title>
+</head>
+<body>
+<script type="text/javascript">
+    // let nums = [2, 7, 11, 16]
+    // let target = 18
+
+    // 2 数之和
+
+    // function sum (arr, target) {
+    //     let map = {}
+
+    //     for (let i = 0; i < arr.length; i++) {
+    //         let val = arr[i]
+    //         let mateNum = target - val
+    //         if (map[mateNum] !== undefined) {
+    //             return [map[mateNum], i]
+    //         } else {
+    //             map[val] = i
+    //         }
+    //     }
+
+    //     return []
+    // }
+
+    // 2 数之和（支持多个结果）
+
+    function sum2 (arr, target) {
+        let map = {}
+        let result = []
+
+        for (let i = 0; i < arr.length; i++) {
+            let val = arr[i]
+            let mateNum = target - val
+            if (map[mateNum] !== undefined) {
+                result.push([map[mateNum], i])
+            } else {
+                map[val] = i
+            }
+        }
+
+        return result
+    }
+
+    let r = sum2(nums, target)
+    console.log(r)
+</script>
+</body>
+</html>

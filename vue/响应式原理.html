@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>vue 响应式原理</title>
+</head>
+<body>
+<script>
+function defineReactive (data, key, val) {
+  let deps = []
+  Object.defineProperty(data, key, {
+    enumerable: true,
+    configurable: true,
+    get: function () {
+      deps.push(val)
+      return val
+    },
+    set: function (newVal) {
+      if(val === newVal){
+        return
+      }
+      console.log(`set deps ${key}: `, deps)
+      val = newVal
+    }
+  })
+}
+
+let obj01 = {
+  name: {
+    value: '1'
+  },
+
+}
+
+let obj02 = {
+  name: 'obj02',
+}
+
+defineReactive(obj01, 'age', 11)
+defineReactive(obj01.name, 'value', 'name1')
+defineReactive(obj02, 'age', 22)
+
+console.log('obj01: ', obj01.age)
+console.log('obj01: ', obj01.age = 111)
+console.log('obj01: ', obj01.name.value)
+console.log('obj01: ', obj01.name.value = 'name2')
+
+console.log('obj02: ', obj02.age)
+console.log('obj02: ', obj02.age = 222)
+</script>
+
+<script>
+  
+</script>
+</body>
+</html>

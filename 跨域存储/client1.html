@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>client-1</title>
+</head>
+<body>
+
+	<button onclick="handleSend()">send-1</button>
+
+	<iframe src="http://localhost:6000/hub.html" frameborder="0" id="hub"></iframe>
+	<script>
+		const $ = id => document.querySelector(id)
+		const ifameWin = $('#hub').contentWindow
+
+		let count = 0
+		function handleSend () {
+			let data = {
+				method: 'setItem',
+				content: `来自 client-1 消息：${count++}`,
+			}
+			ifameWin.postMessage(data, '*')
+		}
+
+		
+	</script>
+</body>
+</html>

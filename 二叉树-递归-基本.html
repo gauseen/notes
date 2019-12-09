@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>二叉树-递归</title>
+    <meta charset="utf-8">
+</head>
+<body>
+<script>
+    // 树是用来模拟具有树状结构性质的数据集合，二叉树是每个结点最多有两个子树的树结构
+    // 通常子树被称作“左子树”（left subtree）和“右子树”（right subtree）。二叉树常被用于实现二叉查找树和二叉堆。
+    // 二叉搜索树（BST）是二叉树的一种，但是它只允许你在左侧节点存储（比父节点）小的值，
+    // 在右侧节点存储（比父节点）大（或者等于）的值。
+
+    class Node {
+        constructor (key) {
+            this.left = null
+            this.key = key
+            this.right = null
+        }
+    }
+
+    class BinarySearchTree {
+        constructor () {
+            this.root = null
+        }
+
+        insert (key) {
+            let newNode = new Node(key)
+
+            let insertNode = (node, newNode) => {
+                if (newNode.key < node.key) {
+                    if (node.left === null) {
+                        node.left = newNode
+                    } else {
+                        insertNode(node.left, newNode)
+                    }
+                } else {
+                    if (node.right === null) {
+                        node.right = newNode
+                    } else {
+                        insertNode(node.right, newNode)
+                    }
+                }
+            }
+            if (this.root === null) {
+                this.root = newNode
+            } else {
+                insertNode(this.root, newNode)
+            }
+        }
+        // 中序遍历
+        inOrderTraverse (callback) {
+            let inOrderTraverseNode = (node, callback) => {
+                if (node === null) return
+                inOrderTraverseNode(node.left, callback)
+                // inOrderTraverseNode(node.right, callback)
+                callback(node)
+                // inOrderTraverseNode(node.left, callback)
+                inOrderTraverseNode(node.right, callback)
+            }
+            inOrderTraverseNode(this.root, callback)
+        }
+    }
+
+    let tree = new BinarySearchTree()
+
+    // tree.insert(6)
+    // tree.insert(1)
+    // tree.insert(3)
+    // tree.insert(5)
+    // tree.insert(0)
+    // tree.insert(8)
+    // tree.insert(7)
+    // tree.insert(9)
+    tree.insert(4)
+    tree.insert(2)
+    tree.insert(7)
+    tree.insert(1)
+    tree.insert(3)
+    tree.insert(6)
+    tree.insert(9)
+    console.log('tree: ', tree)
+
+    // tree.inOrderTraverse((node) => console.log(node))
+
+    // 翻转二叉树
+    const reverseTree = (node) => {
+      if (node === null) return null
+
+      let right = node.right
+      node.right = reverseTree(node.left)
+      node.left = reverseTree(right)
+      return node
+    }
+
+    let r = reverseTree(tree.root)
+
+    console.log('reverseTree: ', r)
+</script>
+</body>
+</html>

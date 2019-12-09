@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>扫码枪</title>
+</head>
+<body>
+
+barcode: <input type="text">
+
+<script type="text/javascript">
+  // 只对影响页面显示的键盘事件响应，不支持中文输入法
+  const barcodeSanner = (callback) => {
+    let barcodeStr = ''
+    let timer = null
+
+    const trigger = () => {
+      if (barcodeStr.length > 1) callback(barcodeStr)
+      barcodeStr = ''
+    }
+
+    document.addEventListener('keypress', (e) => {
+
+      if (e.keyCode !== 13) {
+        barcodeStr += e.key
+        clearTimeout(timer)
+        timer = setTimeout(trigger, 50)
+      }
+
+      console.log('keypress e: ', e.key)
+    })
+  }
+
+  barcodeSanner((barcode) => {
+    console.log('barcode-------: ', barcode)
+  })
+
+  // 只要键盘按下即响应事件
+  // document.addEventListener('keydown', (e) => {
+  //   console.log('keydown e: ', e.keyCode)
+  // })
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>正则</title>
+</head>
+<body>
+<script type="text/javascript">
+  let str = '1234567890'
+  let reg = /(\d)(?=(\d{3})+\b)/g
+  // let reg = /((\d{3})+\b)/g
+
+  let r = str.replace(reg, (match, g1, g2, g3) => {
+    console.log('match: ', match)
+    console.log('g1: ', g1)
+    console.log('g2: ', g2)
+    console.log('g3: ', g3)
+    return match + '_'
+
+  })
+  console.log('r: ', r)
+</script>
+</body>
+</html>

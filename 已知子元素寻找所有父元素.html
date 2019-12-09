@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>找所有父元素</title>
+</head>
+<body>
+<script type="text/javascript">
+const data = [{
+    id: '1',
+    name: 'test1',
+    children: [
+        {
+            id: '11',
+            name: 'test11',
+            children: [
+                {
+                    id: '111',
+                    name: 'test111'
+                },
+                {
+                    id: '112',
+                    name: 'test112'
+                }
+            ]
+
+        },
+        {
+            id: '12',
+            name: 'test12',
+            children: [
+                {
+                    id: '121',
+                    name: 'test121'
+                },
+                {
+                    id: '122',
+                    name: 'test122'
+                }
+            ]
+        }
+    ]
+}];
+
+// 是否出现了与目标 id 相等的值
+let hasEqual = false
+
+const findParentList = (arr, targetId, result = []) => {
+  for (let item of arr) {
+
+    result.push(item.id)
+
+    if (Array.isArray(item.children)) {
+      findParentList(item.children, targetId, result)
+    }
+
+    if (!hasEqual) {
+      tail = result.pop()
+    }
+    
+    if (tail === targetId) {
+      hasEqual = true
+      return result
+    }
+  }
+}
+
+let r = findParentList(data, '121', [])
+
+console.log('r: ', r)
+</script>
+</body>
+</html>

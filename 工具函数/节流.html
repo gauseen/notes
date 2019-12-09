@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>节流</title>
+</head>
+<body>
+<script type="text/javascript">
+  let throttle = function (fn, delay = 200) {
+    let prev = 0
+
+    return function (...args) {
+      let context = this
+      let now = Date.now()
+
+      if (now - prev > delay) {
+        fn.apply(context, args)
+        prev = now
+      }
+    }
+  }
+
+  function subject (args) {
+    console.log('subject this: ', args, this)
+  }
+
+  let throttledSub = throttle(subject)
+  let obj = { name: 'obj' }
+  throttledSub.call(obj, '1')
+  throttledSub.call(obj, '2')
+
+  setTimeout(throttledSub, 200)
+</script>
+</body>
+</html>

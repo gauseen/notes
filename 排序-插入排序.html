@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>插入排序</title>
+    <meta charset="utf-8">
+</head>
+<body>
+<script>
+  /** 插入排序 https://github.com/biaochenxuying/blog/issues/39 */
+
+  let arr = [3, 4, 5, 2, 1]
+
+  for (let i = 0; i < arr.length; i++) {
+    let tmp = arr[i]
+
+    let j = i
+    // 找到合适位置索引（前面小后面大）
+    while (j > 0 && tmp < arr[j - 1]) {
+      arr[j] = arr[j - 1]
+      j--
+    }
+
+    if (j !== i) {
+      arr[j] = tmp
+    }
+  }
+
+    // for (let i = 0; i < arr.length; i++) {
+    //     var current = arr[i] // 当前要插入的元素
+    //     var pointer = i - 1 // 待比较元素的下标
+
+    //     while (pointer >= 0 && arr[pointer] > current) {
+    //         arr[pointer + 1] = arr[pointer] // 将待比较元素后移一位
+    //         pointer--
+    //     }
+
+    //     if (pointer + 1 !== i) { // 避免同一个元素赋值给自身
+    //         arr[pointer + 1] = current // 将当前元素插入预留位置
+
+    //         console.log(`round-${i}: `, arr.toString())
+    //     }
+    // }
+
+    console.log('arr: ', arr.toString())
+
+
+    /**
+     3, 4, 5, 2, 1
+
+     具体排序步骤：
+
+     round-3: 2, 3, 4, 5, 1
+     round-4: 1, 2, 3, 4, 5
+    */
+</script>
+</body>
+</html>

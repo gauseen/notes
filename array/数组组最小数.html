@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>数组组最小数</title>
+</head>
+<body>
+<script type="text/javascript">
+    let arr = [2, 3, 11, 4]
+
+    let r = arr.sort(compare).join('')
+
+    function compare (a, b) {
+        let ab = '' + a + b
+        let ba = '' + b + a
+        return ab - ba
+    }
+
+    console.log(r)
+</script>
+</body>
+</html>

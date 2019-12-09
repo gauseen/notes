@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>排序 js 对象特性</title>
+</head>
+<body>
+<script type="text/javascript">
+  let arr = [3, 4, 5, 2, 1, 5, 1]
+
+  let obj = arr.reduce((acc, current) => {
+    acc[current] = acc[current] || []
+    acc[current].push(current)
+    return acc
+  }, {})
+
+  console.log('obj: ', obj)
+  let r = Object.values(obj)
+
+  const flat = (arr) => {
+    return arr.reduce((acc, current) => {
+      if (Array.isArray(current)) {
+        acc = [...acc, ...flat(current)]
+      } else {
+        acc.push(current)
+      }
+      return acc
+    }, [])
+  }
+  
+  console.log(flat(r))
+</script>
+</body>
+</html>

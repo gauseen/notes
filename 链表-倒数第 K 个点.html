@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>链表-倒数第 K 个点</title>
+</head>
+<body>
+<script type="text/javascript">
+    class Node {
+        constructor (value) {
+            this.prev = null
+            this.value = value
+            this.next = null
+        }
+    }
+
+    class LinkList {
+        constructor () {
+            this.head = null
+        }
+
+        append (value) {
+            let node = new Node(value)
+            let current = this.head
+
+            if (!this.head) {
+                this.head = node
+                return
+            }
+
+            while (current.next) {
+               current = current.next
+            }
+            // node.prev = current
+            current.next = node
+        }
+    }
+
+    const linkList = new LinkList()
+    linkList.append(1)
+    linkList.append(2)
+    linkList.append(3)
+    linkList.append(4)
+    linkList.append(5)
+
+    const solution = (head, k) => {
+        let tmp = head
+        let current = head
+        let idx = 0
+        while (current) {
+            idx++
+            if (idx > k) {
+                tmp = tmp.next
+            }
+
+            current = current.next
+        }
+
+        return tmp
+    }
+
+    console.log(solution(linkList.head, 3))
+</script>
+</body>
+</html>

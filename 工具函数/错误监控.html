@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>错误监控</title>
+  <link rel="stylesheet" type="text/css" href="./s.scc">
+</head>
+<body>
+
+<!-- https://blog.fundebug.com/2018/12/07/how-to-handle-frontend-error/ -->
+
+<script type="text/javascript">
+  // 由于网络请求异常不会事件冒泡，因此必须在捕获阶段监听静态资源加载错误
+  window.addEventListener('error', function (e) {
+    console.log('error e: ', e)
+  }, true)
+
+  window.addEventListener("beforeunload", function (e) {
+    var confirmationMessage = "\o/";
+
+    (e || window.event).returnValue = confirmationMessage;     // Gecko and Trident
+    return confirmationMessage;                                // Gecko and WebKit
+  })
+
+  // 跨浏览器 tab 监听浏览器存储改变事件
+  // window.addEventListener('storage', function (e) {
+  //   console.log('storage change: ', e)
+  // }, false);
+
+  // setInterval(function () {
+  //     var time = new Date().getTime()
+  //     localStorage.setItem("time", time)
+  //     console.log("Setting time to "+time)
+  // }, 1000)
+</script>
+
+<script src="./a.js"></script>
+</body>
+</html>

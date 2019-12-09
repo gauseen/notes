@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>router</title>
+</head>
+<body>
+<h2>hash</h2>
+<ul>
+  <li>
+    <a onclick="goHash('/one')">one</a>
+  </li>
+  <li>
+    <a onclick="goHash('/two')">two</a>
+  </li>
+</ul>
+
+<h2>histroy</h2>
+<ul>
+  <li>
+    <a onclick="go('/one.html')">one</a>
+  </li>
+  <li>
+    <a onclick="go('/two.html')">two</a>
+  </li>
+</ul>
+
+<script type="text/javascript">
+
+  function goHash (path) {
+    window.location.hash = path
+  }
+
+
+
+  function go (path) {
+    window.history.pushState({ path: path }, null, path)
+  }
+
+  window.addEventListener('popstate', (e) => {
+    console.log('popstate: ', e)
+  })
+</script>
+</body>
+</html>

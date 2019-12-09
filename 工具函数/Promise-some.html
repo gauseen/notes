@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>promise some</title>
+</head>
+<body>
+<!-- 有一个 fulfilled 就返回，所有都 rejected 才返回 -->
+<script type="text/javascript">
+  // let p1 = Promise.resolve(1)
+  let p1 = Promise.reject(1)
+  let p2 = Promise.reject(2)
+  let p3 = Promise.resolve(3)
+
+  const some = (promseList = []) => {
+    let length = promseList.length
+    let errCount = 0
+    let reasonList = []
+    return new Promise((resolve, reject) => {
+      let handleErr = (err) => {
+        reasonList[errCount++] = err
+        if (errCount === length) {
+          reject(reasonList)
+        }
+      }
+      for(let i = 0; i < length; i++) {
+        let promiseItem = promseList[i]
+        promiseItem.then(resolve, handleErr)
+      }
+    })
+  }
+
+  some([p1, p2, p3]).then((...res) => {
+    console.log('res: ', res)
+  }).catch((...err) => {
+    console.log('err: ', err)
+  })
+</script>
+</body>
+</html>

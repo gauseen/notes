@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>斐波那契数列</title>
+</head>
+<body>
+<script type="text/javascript">
+    // 斐波那契数列（Fibonacci sequence），又称黄金分割数列、因数学家列昂纳多·斐波那契（Leonardoda Fibonacci）以兔子繁殖为例子而引入，故又称为“兔子数列”
+    // 指的是这样一个数列：1、1、2、3、5、8、13、21、34、……
+
+    // 每个数字等于前 2 个数字之和
+
+    // 公式: F(n) = F(n-1) + F(n-2)
+
+    // 递归
+    // 缺点，包含大量的重复计算，计算量大，容易溢出
+
+    function fibonacci (n) {
+        if (n <= 2) return n
+
+        return fibonacci(n - 1) + fibonacci(n - 2)
+    }
+
+    fibonacci(1) // 1
+    fibonacci(2) // 2
+    fibonacci(3) // 3
+    fibonacci(4) // 5
+    fibonacci(5) // 8
+
+    // 递归 + 记忆优化
+
+    function fibonacci (n, memory = {}) {
+        if (n <= 2) return n
+
+        if (!memory[n]) {
+            memory[n] = fibonacci(n - 1) + fibonacci(n - 2)
+        }
+        return memory[n]
+    }
+
+    var r = ''
+    r = fibonacci(1) // 1
+    console.log(r)
+    r = fibonacci(2) // 2
+    console.log(r)
+    r = fibonacci(3) // 3
+    console.log(r)
+    r = fibonacci(4) // 5
+    console.log(r)
+    r = fibonacci(5) // 8
+    console.log(r)
+
+    // 动态规划
+    // 优点，计算复杂度低
+
+    function fibonacci (n) {
+        let [pre, current] = [0, 1]
+
+        for (let i = 0; i < n; i++) {
+            [pre, current] = [current, pre + current]
+        }
+
+        console.log(current)
+    }
+
+    fibonacci(1) // 1
+    fibonacci(2) // 2
+    fibonacci(3) // 3
+    fibonacci(4) // 5
+    fibonacci(5) // 8
+</script>
+</body>
+</html>

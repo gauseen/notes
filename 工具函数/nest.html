@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>嵌套函数（一维数组 --> 多维数组）</title>
+</head>
+<body>
+<script type="text/javascript">
+  let list = [
+    { pId: null, id: 0 },
+    { pId: 0, id: 1 },
+    { pId: 0, id: 3 },
+    { pId: 1, id: 4 },
+    { pId: 2, id: 5 },
+    { pId: 4, id: 6 },
+  ]
+
+  let nest = (list, pId = null) => {
+    return list
+            .filter((item) => item.pId === pId)
+            .map((item) => {
+              return {
+                ...item,
+                children: nest(list, item.id)
+              }
+            })
+  }
+
+  let r = nest(list)
+
+  console.log(r)
+</script>
+</body>
+</html>

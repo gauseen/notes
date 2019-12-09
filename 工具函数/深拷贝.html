@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>深拷贝</title>
+</head>
+<body>
+<script type="text/javascript">
+  let obj = {
+    name: 'obj',
+    child: {
+      name: 'child',
+    },
+    children: [
+      { name: 'children' },
+    ],
+  }
+
+  let obj2 = {
+    objkey02: obj,
+  }
+
+  obj.objkey = obj2
+
+  const deepClone = (data, map = new WeakMap()) => {
+    if (typeof data !== 'object') return data
+
+    if (map.get(data)) return map.get(data)
+    map.set(data, data)
+
+    let tmp = Array.isArray(data) ? [] : {}
+
+    for (let key in data) {
+      tmp[key] = deepClone(data[key], map)
+    }
+
+    return tmp
+  }
+
+  let r = deepClone(obj)
+  r.name = 'obj-new'
+  r.children[0].name = 'children-new'
+
+  console.log('r: ', r)
+
+  console.log('obj: ', obj)
+</script>
+</body>
+</html>

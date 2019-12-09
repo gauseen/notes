@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>奇数放在偶数前面</title>
+</head>
+<body>
+<script type="text/javascript">
+    let arr = [2, 3, 11, 4]
+    let r = arr.sort((a, b) => {
+        return b % 2 - a % 2
+    })
+
+    console.log(r)
+</script>
+</body>
+</html>

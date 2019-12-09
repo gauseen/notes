@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>层叠上下文</title>
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    html {
+      border: 3px solid #111;
+      background-color: #ccc;
+    }
+    /*body {*/
+      /*border: 3px solid red;*/
+      /*background-color: #2fe;*/
+    /*}*/
+    section {
+      /*display: flex;*/
+    }
+    .box {
+      position: relative;
+      /*opacity: 0.5;*/
+      min-height: 200px;
+      width: 300px;
+      z-index: auto;
+      background-color: blue;
+    }
+    .child1 {
+      width: 120px;
+      height: 120px;
+      background-color: yellow;
+      position: relative;
+      left: 280px;
+      z-index: -1;
+    }
+    .child1-1 {
+      width: 80px;
+      height: 80px;
+      position: relative;
+      background-color: lightgreen;
+      z-index: -9;
+    }
+    .box .man {
+      background-color: red;
+    }
+    .box2 {
+      width: 100px;
+      height: 100px;
+      background-color: #eee;
+      position: relative;
+      top: -60px;
+      left: 100px;
+      z-index: 0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- https://www.zhangxinxu.com/wordpress/2016/01/understand-css-stacking-context-order-z-index/ -->
+
+<!-- 对于 flex 子元素 z-index 也会生效 -->
+
+<!-- 
+z-index值不为auto的flex项(父元素display:flex|inline-flex).
+元素的opacity值不是1.
+元素的transform值不是none.
+元素mix-blend-mode值不是normal.
+元素的filter值不是none.
+元素的isolation值是isolate.
+will-change指定的属性值为上面任意一个
+元素的-webkit-overflow-scrolling设为touch
+ -->
+
+<section>
+  <div class="box">
+    <div class="child1">
+      child1
+      <p class="child1-1">child1-child</p>
+    </div>
+    <!-- <img src="./yell-man.jpg"> -->
+    <div class="man">yell-man.jpg</div>
+  </div>
+  <div class="box2"> box2 position </div>
+</section>
+</body>
+</html>

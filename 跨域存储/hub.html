@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>hub</title>
+</head>
+<body>
+	<script>
+		window.addEventListener('message', function (e) {
+			let { method, content } = e.data
+			let map = {
+				setItem: () => {
+					window.localStorage['setItem']('hub-key', content)
+				},
+				getItem: () => {
+					let content = window.localStorage['getItem']('hub-key')
+					// 把获取的数据，传递给父级窗口
+					window.parent.postMessage(content, '*')
+					// console.log('hub-key content: ', content)
+				},
+			}
+
+			map[method]()
+		})
+	</script>
+</body>
+</html>

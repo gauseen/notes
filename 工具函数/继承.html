@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>继承</title>
+</head>
+<body>
+<script type="text/javascript">
+
+  function Parent () {
+    this.name = 'Parent'
+    this.speak = '说'
+  }
+
+  function Child () {
+    this.name = 'Child'
+  }
+
+  Parent.prototype.eat = function () {
+    this.eat = 'eat...'
+  }
+
+
+  // 01 原型继承
+  // 缺点：原型是所有子类实例共享的，改变一个其他也会改变
+
+  // Child.prototype = new Parent()
+
+  // let child01 = new Child()
+  // console.log('child01: ', child01)
+
+  // 02 构造继承
+  // 缺点：不能继承父类原型
+
+  // function Child2 () {
+  //   Parent.call(this)
+  //   this.name = 'Child'
+  // }
+
+  // let child02 = new Child2()
+  // console.log('child02: ', child02)
+
+  // 03 组合继承
+
+  function Child03 () {
+    Parent.call(this)
+  }
+
+  Child03.prototype = Parent.prototype
+
+  let child03 = new Child03()
+  console.log('child03: ', child03)
+
+  // 04 寄生组合继承
+
+    function Child04 () {
+      Parent.call(this)
+    }
+
+    Child04.prototype = Object.create(Parent.prototype, {
+      // 指定准确的构造函数
+      constructor: {
+        value: Child04
+      }
+    })
+
+    // 不推荐，会改变父级的构造函数
+    // Child04.prototype.constructor = Child04
+
+    let child04 = new Child04()
+    console.log('child04: ', child04)
+</script>
+</body>
+</html>

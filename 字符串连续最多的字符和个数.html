@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>字符串连续最多字符</title>
+</head>
+<body>
+<script type="text/javascript">
+  let str1 = 'abbkejsbcccwqaa'
+  let str2 = 'abcaakjbb'
+
+  let solution = (str) => {
+    let result = {}
+    let prev = str[0]
+    let count = 0
+
+    for(let i = 0; i <= str.length; i++) {
+      let currentChar = str[i]
+      if (prev === currentChar) {
+        count++
+      } else {
+        let prevCount = result[prev] || 1
+        result[prev] = Math.max(prevCount, count)
+        count = 1
+        prev = currentChar
+      }
+      
+    }
+
+    return result
+  }
+
+  let r1 = solution(str1)
+  console.log('r1: ', r1)
+
+  let r2 = solution(str2)
+  console.log('r2: ', r2)
+
+</script>
+</body>
+</html>

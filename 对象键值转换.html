@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>对象键值转换</title>
+</head>
+<body>
+<script>
+  var entry1 = {
+    'a.b.c.dd': 'abcdd',
+    'a.d.xx': 'adxx',
+    'a.e': 'ae'
+  }
+
+  // let keyList = 'a.b.c.dd'.split('.')
+  let obj = {}
+  let current = obj
+  let key = ''
+
+  for ([paths, value] of Object.entries(entry1)) {
+    let keys = paths.split('.')
+    let tailKey = keys.pop()
+    while (key = keys.shift()) {
+      if (!current[key]) {
+        current[key] = {}
+      }
+      current = current[key]
+    }
+    current[tailKey] = value
+    current = obj
+  }
+
+  console.log('out1: ', obj)
+
+
+  var entry2 = {
+    a: {
+     b: {
+       c: {
+         dd: 'abcdd'
+       }
+     },
+     d: {
+       xx: 'adxx'
+     },
+     e: 'ae'
+    }
+  }
+
+  var flatObj = (entry, keyStr = '', result = {}) => {
+    let keyList = Object.keys(entry)
+    for (key of keyList) {
+      if (typeof entry[key] === 'object') {
+        flatObj(entry[key], `${keyStr}${key}.`, result)
+      } else {
+        result[`${keyStr}${key}`] = entry[key]
+      }
+    }
+    return result
+  }
+
+  let out2 = flatObj(entry2)
+  console.log('out2: ', out2)
+</script>
+</body>
+</html>

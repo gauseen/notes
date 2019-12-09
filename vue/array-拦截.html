@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Vue Array 拦截</title>
+</head>
+<body>
+<script type="text/javascript">
+  // 原型链拦截的方式，使 push、pop 等方法可以被监听
+  let arrayProto = Array.prototype
+  let arrayMethods = Object.create(arrayProto)
+  const methodsToPatch = [
+    'push',
+    'pop',
+    'shift',
+    'unshift',
+    'splice',
+    'sort',
+    'reverse'
+  ]
+
+  methodsToPatch.forEach((method) => {
+    let origin = arrayProto[method]
+    Object.defineProperty(arrayMethods, method, {
+      value: function (...args) {
+        let result = origin.apply(this, args)
+        console.log('拦截: ', method)
+        return result
+      }
+    })
+  })
+
+  let list = []
+  Object.setPrototypeOf(list, arrayMethods)
+  list.push('111')
+  list.unshift('222')
+
+  console.log(list)
+</script>
+</body>
+</html>

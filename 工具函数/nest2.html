@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>嵌套函数 2（一维数组 --> 多维数组）</title>
+</head>
+<body>
+<script type="text/javascript">
+  let list = [
+    { pId: null, id: 0 },
+    { pId: 0, id: 1 },
+    { pId: 0, id: 3 },
+    { pId: 1, id: 4 },
+    { pId: 2, id: 5 },
+    { pId: 4, id: 6 },
+  ]
+
+  let map = list.reduce((acc, current) => {
+    let key = 'id'
+    let _key = `key_${[current[key]]}`
+    acc[_key] = current
+    return acc
+  }, {})
+
+  let result = []
+
+  list.forEach((item) => {
+    let _key = `key_${item.pId}`
+    let parent = map[_key]
+
+    // 无父级的就是最顶层
+    // 由于对象的引用特性，只需要 result 里面的顶层数据即可
+    if (!parent) {
+      result.push(item)
+    } else {
+      parent.children = parent.children || []
+      parent.children.push(item)
+    }
+  })
+
+  console.log('map: ', map)
+  console.log('result: ', result)
+  console.log('list: ', list)
+</script>
+</body>
+</html>

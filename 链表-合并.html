@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>链表-合并</title>
+</head>
+<body>
+<script type="text/javascript">
+    class Node {
+        constructor (value) {
+            this.prev = null
+            this.value = value
+            this.next = null
+        }
+    }
+
+    class LinkList {
+        constructor () {
+            this.head = null
+        }
+
+        append (value) {
+            let node = new Node(value)
+            let current = this.head
+
+            if (!this.head) {
+                this.head = node
+                return
+            }
+
+            while (current.next) {
+               current = current.next
+            }
+            // node.prev = current
+            current.next = node
+        }
+    }
+
+    const link01 = new LinkList()
+    link01.append(1)
+    link01.append(3)
+    link01.append(5)
+    link01.append(7)
+    link01.append(8)
+
+    const link02 = new LinkList()
+    link02.append(2)
+    link02.append(4)
+    link02.append(6)
+    link02.append(8)
+
+    const merge = (l01, l02) => {
+      if (l01 === null) return l02
+      if (l02 === null) return l01
+
+      if (l01.value < l02.value) {
+        l01.next = merge(l01.next, l02)
+        return l01
+      } else {
+        l02.next = merge(l02.next, l01)
+        return l02
+      }
+    }
+
+    let r01 = merge(link01.head, link02.head)
+
+    console.log(r01)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function mergeLink (link01, link02) {
+        if (link01 === null) return link02
+        if (link02 === null) return link01
+
+        if (link01.value < link02.value) {
+            link01.next = mergeLink(link01.next, link02)
+            return link01
+        } else {
+            link02.next = mergeLink(link01, link02.next)
+            return link02
+        }
+    }
+
+    // let r = mergeLink(link01.head, link02.head)
+
+    // console.log(r)
+
+</script>
+</body>
+</html>

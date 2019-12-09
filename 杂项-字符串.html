@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>杂项-字符串</title>
+</head>
+<body>
+<script type="text/javascript">
+    let str = 'aa-bb-cc_dd'
+    let r  = str.replace(/[-_](\w{1})/g, function (match, group1) {
+        return group1.toUpperCase()
+    })
+
+    console.log(r)
+</script>
+</body>
+</html>

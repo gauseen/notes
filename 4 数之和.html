@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>4 数之和</title>
+</head>
+<body>
+<script type="text/javascript">
+    // 如果要想在 n 个物品中，选择 k 个物品出来，选择的顺序无所谓，那么选择的方式总共有这么多种？
+    // C(n, k) = n! / (n-k)! / k!
+
+    let nums = [1, 0, -1, 0, -2, 2]
+    let target = 0
+
+    const solution = (nums, target) => {
+        let result = []
+        
+        for (let i = 0; i < nums.length; i++) {
+            let current = nums[i]
+
+            for (let j = i + 1; j < nums.length; j++) {
+                
+                for (let k = j + 1; k < nums.length; k++) {
+
+                    for (let l = k + 1; l < nums.length; l++) {
+                        let sum = nums[i] + nums[j] + nums[k] + nums[l]
+                        if (sum === target) {
+                            result.push([nums[i], nums[j], nums[k], nums[l]])
+                        }
+                    }
+                }
+            }
+            
+        }
+
+        return result
+    }
+
+    let r = solution(nums, target)
+    console.log(r)
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>最大公约数</title>
+</head>
+<body>
+<script type="text/javascript">
+  const commonDivisor = (num1, num2) => {
+    let yu = num1 % num2
+    if (yu === 0) return num2
+
+    return commonDivisor(num2, yu)
+  }
+
+  console.log('commonDivisor: ', commonDivisor(104, 40))
+
+
+  const commonDivisor2 = (num1, num2) => {
+    // 余数
+    let yu = null
+    // 被除数
+    let dividend = num1
+    // 除数
+    let divisor = num2
+    while (yu !== 0) {
+      yu = dividend % divisor
+      dividend = divisor
+      divisor = yu
+    }
+
+    return dividend
+  }
+
+   console.log('commonDivisor2: ', commonDivisor2(104, 40))
+</script>
+</body>
+</html>

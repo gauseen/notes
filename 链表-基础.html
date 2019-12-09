@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>链表-基础</title>
+</head>
+<body>
+<script type="text/javascript">
+    class Node {
+        constructor (value) {
+            this.prev = null
+            this.value = value
+            this.next = null
+        }
+    }
+
+    class LinkList {
+        constructor () {
+            this.head = null
+        }
+
+        append (value) {
+            let node = new Node(value)
+            let current = this.head
+
+            if (!this.head) {
+                this.head = node
+                return
+            }
+
+            while (current.next) {
+               current = current.next
+            }
+            // node.prev = current
+            current.next = node
+        }
+    }
+
+    // 反转链表
+
+    // function reverseLink (head) {
+    //     let prev = null
+    //     let next = null
+
+    //     while (head) {
+    //         next = head.next
+    //         head.next = prev
+    //         prev = head
+    //         head = next
+    //     }
+
+    //     return prev
+    // }
+
+    // function reverseLink (head) {
+    //   if (!head || !head.next) {
+    //     return head
+    //   }
+      
+    //   let next = head.next
+
+    //   head.next = reverseLink(next.next)
+
+    //   next.next = head
+
+    //   return next
+    // }
+
+    // 每 k 个，分组
+    function groupingByK (head, k) {
+      let index = 0
+      let groupList = []
+
+      while (head.next) {
+        // 0,3,6 --> 1,4,7
+        if (index % k === 0) {
+          groupList.push(head)
+        }
+        head = head.next
+        index++
+      }
+
+      return groupList
+    }
+
+    function reverseK(head, k) {
+      let prev = null
+      let index = 0
+
+      while (head) {
+        let next = head.next
+        head.next = prev
+        prev = head
+        head = next
+      }
+
+      return prev
+    }
+
+    const linkList = new LinkList()
+    linkList.append(1)
+    linkList.append(2)
+    linkList.append(3)
+    linkList.append(4)
+    linkList.append(5)
+    linkList.append(6)
+    linkList.append(7)
+
+    // console.log(linkList.head)
+    let groupList = groupingByK(linkList.head, 3)
+    console.log('groupList: ', groupList)
+    // let reverse = reverseK(linkList.head, 3)
+    console.log('reverse: ', reverse)
+
+</script>
+</body>
+</html>

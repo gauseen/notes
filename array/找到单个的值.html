@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>找到单个的值</title>
+</head>
+<body>
+<script type="text/javascript">
+    let str = 'bebgcecd'
+    
+    function findFirstCharIndex (str) {
+        for (var i = 0; i < str.length; i++) {
+            if (str.indexOf(str[i]) == str.lastIndexOf(str[i])) {
+                return i
+            }
+        }
+        return -1
+    }
+
+    let result = findFirstCharIndex(str)
+    console.log(result)
+</script>
+</body>
+</html>

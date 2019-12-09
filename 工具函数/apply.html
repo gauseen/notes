@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>apply</title>
+</head>
+<body>
+<script type="text/javascript">
+  Function.prototype.apply2 = function (context = window, arr) {
+    // 用于防止 Function.prototype.apply2() 直接调用
+    if (this === Function.prototype) return void 0
+
+    let key = Symbol()
+    context[key] = this
+    let isArr = Array.isArray(arr)
+    let result
+    if (isArr) {
+      result = context[key](...arr)
+    } else {
+      result = context[key]()
+    }
+
+    delete context[key]
+
+    return result
+  }
+
+  let obj = { id: 'obj' }
+
+  function foo (...args) {
+    console.log('foo: ', this, args)
+  }
+
+  foo.apply2()
+
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>instanceof</title>
+</head>
+<body>
+<script type="text/javascript">
+  function instanceof2 (left, right) {
+    let proto = left.__proto__
+    while (proto) {
+      if (left.__proto__ === right.prototype) {
+        return true
+      }
+
+      proto = proto.__proto__
+    }
+
+    return false
+  }
+
+  // console.assert(instanceof2([], Object) === [] instanceof Object)
+  console.log(instanceof2(1, Array))
+  // console.assert(instanceof2(1, Array) === 1 instanceof Array)
+</script>
+</body>
+</html>
