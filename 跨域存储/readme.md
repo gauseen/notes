@@ -17,3 +17,7 @@ http-server -p 6002
 - [http://localhost:6002/client2.html](http://localhost:6002/client2.html)
 
 
+### 参考
+
+- [zendesk/cross-storage](https://github.com/zendesk/cross-storage)
+
