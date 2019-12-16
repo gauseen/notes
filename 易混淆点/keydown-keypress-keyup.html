@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>keydown keypress keyup</title>
+</head>
+<body>
+  <div>
+    onkeydown: <input type="text" onkeydown="keydown()" />
+    <br />
+    onkeypress: <input type="text" onkeypress="keypress()" />
+    <br />
+    onkeyup: <input type="text" onkeyup="keyup()" />
+    <br />
+    oninput: <input type="text" oninput="input()" />
+    <br />
+    compositionend: <input type="text" id="compositionEnd" />
+    <br />
+
+  </div>
+<script>
+  const $ = id => document.querySelector(id)
+
+  function keydown (e) {
+    console.log('onkeydown: ', e)
+  }
+
+  // 不支持中文输入法
+  function keypress (e) {
+    console.log('onkeypress: ', e)
+  }
+
+  function keyup (e) {
+    console.log('onkeyup: ', e)
+  }
+
+  function input (e) {
+    console.log('oninput: ', e)
+  }
+
+  // compositionstart 事件在用户开始进行非直接输入的时候触发（如：中文输入拼音阶段）
+  // compositionEnd 输入结束时，即用户点选候选词或者点击「选定」按钮之后，会触发 compositionend 事件
+  $('#compositionEnd').addEventListener('compositionstart', compositionStart, false)
+  $('#compositionEnd').addEventListener('compositionend', compositionEnd, false)
+
+  function compositionEnd (e) {
+    console.log('compositionEnd: ', e)
+  }
+
+  function compositionStart (e) {
+    console.log('compositionStart: ', e)
+  }
+
+</script>
+</body>
+</html>

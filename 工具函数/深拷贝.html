@@ -23,18 +23,27 @@
   obj.objkey = obj2
 
   const deepClone = (data, map = new WeakMap()) => {
-    if (typeof data !== 'object') return data
-
-    if (map.get(data)) return map.get(data)
-    map.set(data, data)
-
-    let tmp = Array.isArray(data) ? [] : {}
-
-    for (let key in data) {
-      tmp[key] = deepClone(data[key], map)
+    // 简单数据类型直接返回
+    if (data === null || typeof data !== 'object') {
+      return data
     }
 
-    return tmp
+    // 防止循环引用
+    if (map.get(data)) {
+      return map.get(data)
+    }
+
+    map.set(data, data)
+
+    let copy = Array.isArray(data) ? [] : {}
+
+    // Object.keys(data).forEach(key => {
+    // 获取对象中所有的属性名（包含 Symbol 类型的属性）
+    Reflect.ownKeys(data).forEach(key => {
+      copy[key] = deepClone(data[key], map)
+    })
+
+    return copy
   }
 
   let r = deepClone(obj)

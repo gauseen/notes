@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>css 选择器</title>
+  <style type="text/css">
+    /* https://developer.mozilla.org/zh-CN/docs/Web/CSS/Pseudo-elements */
+    /* 伪元素选择器 */
+    /* 它不能匹配任何真实存在的 html 元素 */
+    /* ::before、::after、::selection、::first-letter、::first-line */
+
+
+    /* https://developer.mozilla.org/zh-CN/docs/Web/CSS/Pseudo-classes */
+    /* 伪类选择器 */
+    /*li:first-child {
+      background-color: red;
+    }
+    li.first {
+      background-color: black;
+    }
+    li[first] {
+      background-color: blue;
+    }*/
+
+    /* 非 li 元素计入个数，但不选中 */
+    li:nth-child(2n) {
+      background-color: yellow;
+    }
+    /* 只计算 li 元素个数 */
+    li:nth-of-type(2n) {
+      background-color: lightblue;
+    }
+
+    /*:root 这个 CSS 伪类匹配文档树的根元素 html，比 html 选择器优先级高 */
+    :root {
+      border: 2px solid red;
+    }
+    html {
+      border-color: blue;
+    }
+
+    /* :target CSS 伪类 代表一个唯一的页面元素(目标元素)，其 id 与当前 URL 片段匹配 .*/
+    /* 例如, 以下 URL 拥有一个片段 (以#标识的) ，该片段指向一个 ID 为 section2 的页面元素: http://www.example.com/index.html#section2 */
+    :target {
+      background-color: #1fe;
+    }
+
+    /* LVHA */
+    a:link {
+      color: yellow;
+    }
+    a:visited {
+      color: #ccc;
+    }
+    a:hover {
+      color: #111;
+    }
+    a:active {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+<div class="box">
+  <a href="#">aaaa</a>
+  <ul>
+    <h1>h1 h1</h1>
+    <li class="first" first>11</li>
+    <h2>h2 h2</h2>
+    <li>22</li>
+    <li>33</li>
+    <li>44</li>
+    <li>55</li>
+    <li>66</li>
+  </ul>
+</div>
+
+<section id="section2">
+  section2
+</section>
+</body>
+</html>

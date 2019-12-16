@@ -30,6 +30,17 @@
     return result
   }
 
+  const flat6 = (arr, result = []) => {
+    for (current of arr) {
+      if (Array.isArray(current)) {
+        flat2(current, result)
+      } else {
+        result.push(current)
+      }
+    }
+    return result
+  }
+
   let r3 = flat3(arr)
   console.log(r3)
 </script>
