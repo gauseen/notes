@@ -126,7 +126,7 @@ const Vue = (function() {
       const val = this.vm._data[this.expOrFn];
       // 置空，用于下一个Watcher使用
       Dep.target = null;
-      console.log(Dep.target, 2);
+      console.log('Watcher get fn: ', val);
       return val;
     }
   }
@@ -179,7 +179,7 @@ input.addEventListener('keyup', function(e) {
 });
 
 demo.$watch('text', str => p.innerHTML = str);
-demo.$watch('text', str => p.innerHTML = '-2-' + str);
+// demo.$watch('text', str => p.innerHTML = '-2-' + str);
 
 console.log('demo vue: ', demo)
 </script>

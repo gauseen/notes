@@ -36,17 +36,30 @@ let obj02 = {
   name: 'obj02',
 }
 
-defineReactive(obj01, 'age', 11)
-defineReactive(obj01.name, 'value', 'name1')
-defineReactive(obj02, 'age', 22)
+// defineReactive(obj01, 'age', 11)
+// defineReactive(obj01.name, 'value', 'name1')
+// defineReactive(obj02, 'age', 22)
 
-console.log('obj01: ', obj01.age)
-console.log('obj01: ', obj01.age = 111)
-console.log('obj01: ', obj01.name.value)
-console.log('obj01: ', obj01.name.value = 'name2')
+// console.log('obj01: ', obj01.age)
+// console.log('obj01: ', obj01.age = 111)
+// console.log('obj01: ', obj01.name.value)
+// console.log('obj01: ', obj01.name.value = 'name2')
 
-console.log('obj02: ', obj02.age)
-console.log('obj02: ', obj02.age = 222)
+// console.log('obj02: ', obj02.age)
+// console.log('obj02: ', obj02.age = 222)
+
+var o = {}
+Object.defineProperty(o, 'name', {
+  value: 'gauseen',
+  configurable: false, // 是否可删除
+  writable: true, // 是否可赋值修改
+})
+
+o.name = 'new name'
+o.age = '26'
+// delete o.name
+
+console.log(o)
 </script>
 
 <script>

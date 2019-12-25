@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>vue 2.x</title>
+</head>
+<body>
+<div id="app">
+  <p>{{count}}</p>
+  <p>{{countPlus}}</p>
+  <button @click="plus">++</button>
+</div>
+
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script type="text/javascript">
+  const vm = new Vue({
+    el: '#app',
+    data: {
+      count: 0,
+    },
+    computed: {
+      countPlus () {
+        console.log('computed countPlus: ', )
+        this.count + 1
+        return ''
+      },
+    },
+    // template: `<span>{{count}}</span>`,
+    methods: {
+      plus () {
+        this.count++
+      },
+    },
+  })
+
+  vm.$watch('count', (val) => console.log('watch count: ', val))
+
+
+  console.log('vm: ', vm.$data)
+</script>
+</body>
+</html>

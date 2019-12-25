@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>元素位置</title>
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .box {
+      /*position: relative;*/
+      padding: 0 20px;
+      border: 10px solid #222;
+      height: 900px;
+      width: 600px;
+      margin: auto;
+      overflow: auto;
+    }
+    .item {
+      height: 400px;
+      width: 300px;
+      margin: auto;
+    }
+    .item1 {
+      background-color: #ccc;
+    }
+    .item2 {
+      /*position: sticky;
+      top: 0;*/
+      background-color: #12f;
+    }
+    .item3 {
+      background-color: #fec;
+    }
+    .item4 {
+      background-color: #e23;
+    }
+  </style>
+</head>
+<body>
+<section class="box">
+  <div class="item item1">内容1</div>
+  <div class="item item2">内容2</div>
+  <div class="item item3">内容3</div>
+  <div class="item item4">内容4</div>
+</section>
+
+<script type="text/javascript">
+  const $ = arg => document.querySelector(arg)
+  const boxEle = $('.box')
+  const item1Ele = $('.item1')
+
+  let rect = item1Ele.getBoundingClientRect()
+  console.log('rect: ', rect)
+
+  console.log('documentElement: ', document.documentElement.scrollTop)
+
+  // offset 相对于最近的 table,td,th,body 元素 和 已定位的元素的偏移量
+  console.log('offset: ', item1Ele.offsetLeft)
+
+  boxEle.addEventListener('click', (e) => {
+    console.log(boxEle.scrollTop)
+  })
+  
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>洋葱模型 01</title>
+</head>
+<body>
+<script type="text/javascript">
+  function middleware_01 () {
+    console.log('middleware_01 start')
+    middleware_02()
+    console.log('middleware_01 end')
+  }
+
+  function middleware_02 () {
+    console.log('middleware_02 start')
+    middleware_03()
+    console.log('middleware_02 end')
+  }
+
+  function middleware_03 () {
+    console.log('middleware_03 start')
+
+    console.log('middleware_03 end')
+  }
+
+  function compose () {
+    middleware_01()
+  }
+
+  compose()
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>广度、深度优先遍历</title>
+</head>
+<body>
+<script type="text/javascript">
+  let data = {
+    id: `0`,
+    children: [
+      {
+        id: `1`,
+        children: [
+          { id: `1_1` },
+          {
+            id: `1_2`,
+            children: [ { id: `1_2_1` } ]
+          },
+        ],
+      },
+
+      {
+        id: `2`,
+        children: [
+          {
+            id: `2_1`,
+            children: [
+              { id: `2_1_1` }
+            ],
+          },
+          { id: `2_2`, },
+        ],
+      },
+    ]
+  }
+
+  // 广度优先遍历
+  function breadthFirstTraversal (data) {
+    let result = []
+    let queue = [data]
+    for (let item of queue) {
+      result.push(item.id)
+
+      if (Array.isArray(item.children)) {
+        queue.push(...item.children)
+      }
+    }
+
+    return result
+  }
+
+  let r = breadthFirstTraversal(data)
+  console.log('广度优先 result: ', r)
+
+
+
+  // 深度优先遍历
+  function depthFirstTraversal (data, result = []) {
+    if (Array.isArray(data.children)) {
+      for (let item of data.children) {
+        depthFirstTraversal(item, result)
+      }
+    }
+    result.push(data.id)
+    return result
+  }
+
+  let rd = depthFirstTraversal(data)
+  console.log('深度优先 result: ', rd)
+</script>
+</body>
+</html>
