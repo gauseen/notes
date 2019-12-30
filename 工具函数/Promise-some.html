@@ -12,8 +12,8 @@
   let p2 = Promise.reject(2)
   let p3 = Promise.resolve(3)
 
-  const some = (promseList = []) => {
-    let length = promseList.length
+  const some = (promiseList = []) => {
+    let length = promiseList.length
     let errCount = 0
     let reasonList = []
     return new Promise((resolve, reject) => {
@@ -24,7 +24,7 @@
         }
       }
       for(let i = 0; i < length; i++) {
-        let promiseItem = promseList[i]
+        let promiseItem = promiseList[i]
         promiseItem.then(resolve, handleErr)
       }
     })

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>animation</title>
+  <style type="text/css">
+    .box {
+      height: 200px;
+      width: 200px;
+      border-radius: 50%;
+      background-color: #ccc;
+      animation: move 1s 3 alternate forwards;
+    }
+    @keyframes move {
+      from {
+        transform: translate(0, 0);
+      }
+      to {
+        transform: translate(500px, 0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    &gt;
+    &lt;
+  </div>
+</body>
+</html>

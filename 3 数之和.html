@@ -7,27 +7,55 @@
 <script type="text/javascript">
     let nums3 = [-1, 0, 1, 2, -1, -4]
 
-    function sum3 (arr) {
-        let map = {}
-        let result = []
+    // function sum3 (arr) {
+    //     let map = {}
+    //     let result = []
 
-        for (let i = 0; i < arr.length; i++) {
-            let left = i + 1
-            let right = arr.length - 1
+    //     for (let i = 0; i < arr.length; i++) {
+    //         let left = i + 1
+    //         let right = arr.length - 1
 
-            while (left < right) {
-                let sum = arr[i] + arr[left] + arr[right]
-                if (sum === 0) {
-                    result.push([arr[i], arr[left], arr[right]])
-                }
-                right--
+    //         while (left < right) {
+    //             let sum = arr[i] + arr[left] + arr[right]
+    //             if (sum === 0) {
+    //                 result.push([arr[i], arr[left], arr[right]])
+    //             }
+    //             right--
+    //         }
+    //     }
+
+    //     return result
+    // }
+
+    function sum3 (arr, target) {
+      let leng = arr.length
+      let result = []
+      let count = 0
+      let memo = {}
+
+      arr.sort((a, b) => a - b)
+
+      for (let i = 0; i < leng; i++) {
+        for (let j = i + 1; j < leng; j++) {
+          for (let k = j + 1; k < leng; k++) {
+            let sum = arr[i] + arr[j] + arr[k]
+            if (sum === target) {
+              // 去重
+              let _key = String(arr[i]) + String(arr[j])
+              if (memo[_key]) continue
+              memo[_key] = true
+
+              // 放入结果中
+              result.push([arr[i], arr[j], arr[k]])
             }
+          }
         }
+      }
 
-        return result
+      return result
     }
 
-    let r = sum3(nums3)
+    let r = sum3(nums3, 0)
     console.log(r)
 </script>
 </body>
