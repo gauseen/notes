@@ -7,27 +7,22 @@
 <body>
 <script>
     let s = 'abcdbdbc'
-
-    let getGapMap = str => {
-        let temp = {}
-        Array.from(str).forEach((item, index) => {
-            let gap = index - str.indexOf(item)
-            if (gap === 0) return // 间距为 0，不作处理
-            temp[gap] = temp[gap] || []
-            temp[gap].push(item)
-        })
-        return temp
-    }
-
-    let gapMap = getGapMap(s)
-
-    let maxGap = Math.max(...Object.keys(gapMap))
-
-    let result = gapMap[maxGap].map(item => {
-        return s.substr(s.indexOf(item), maxGap)
+    let arrStr = [...s]
+    let map = {}
+    
+    arrStr.forEach(item => {
+      let idx = arrStr.indexOf(item)
+      let lastIdx = arrStr.lastIndexOf(item)
+      let gap = lastIdx - idx
+      if (gap) {
+        if (map[item] && (map[item].length > gap)) {
+          map[item] = map[item]
+        } else {
+          map[item] = s.slice(idx, lastIdx + 1)
+        }
+      }
     })
-
-    console.log(result)
+    console.log(map)
 
 </script>
 </body>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ali</title>
+</head>
+<body>
+<script type="text/javascript">
+  // 示例一: 'abc' --> {value: 'abc'}
+  // 示例二：'[abc[bcd[def]]]' -> {value: 'abc', children: {value: 'bcd', children: {value: 'def'}}}
+
+
+const normalize = (str) => {
+  let obj = {}
+  let current = obj
+  
+  let list = str.split('[').filter(Boolean).map(item => item.replace(/([a-z]+).*/g, '$1'))
+  let child = 'children'
+
+  while (key = list.shift( )) {
+    if (!current[child]) {
+      current[child] = { value: key, }
+    }
+    current = current[child]
+  }
+
+  return obj
+}
+
+console.log(normalize('abc'))
+console.log(normalize('[abc[bcd[def]]]'))
+</script>
+</body>
+</html>
