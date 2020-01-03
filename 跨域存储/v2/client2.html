@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>client-2</title>
+</head>
+<body>
+  <button onclick="handleGetItem()">client2-GetItem</button>
+  <button onclick="handleSetItem()">client2-SetItem</button>
+
+  <script src="./lib/client.js"></script>
+  <script>
+    const crossStorage = new Client('http://localhost:6003/hub.html')
+    // 在 client2 中，获取 client1 存储的数据
+    function handleGetItem () {
+      crossStorage.getItem('client1Key', (result) => {
+       console.log('client-2 getItem result: ', result)
+      })
+    }
+    // client2 本地存储
+    function handleSetItem () {
+      crossStorage.setItem('client2Key', 'client-2 value', (result) => {
+        console.log('client-2 完成本地存储')
+      })
+    }
+  </script>
+</body>
+</html>
