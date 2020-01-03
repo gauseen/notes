@@ -1,40 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>client-2</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>client-2</title>
 </head>
 <body>
+  <!-- 获取本地存储数据 -->
+  <button onclick="handleGetItem()">client2-getItem</button>
+  <!-- iframe 嵌套“中转页面” hub.html -->
+  <iframe src="http://localhost:6003/hub.html" frameborder="0" id="hub"></iframe>
 
-	<button onclick="handleSend()">send-2</button>
-	<button onclick="handleGet()">get-2</button>
+  <script>
+    const $ = id => document.querySelector(id)
+    // 获取 iframe window 对象
+    const ifameWin = $('#hub').contentWindow
 
-	<iframe src="http://localhost:6000/hub.html" frameborder="0" id="hub"></iframe>
-	<script>
-		const $ = id => document.querySelector(id)
-		const ifameWin = $('#hub').contentWindow
+    function handleGetItem () {
+      let request = {
+        // 存储的方法（获取）
+        method: 'getItem',
+        // 获取的 key
+        key: 'someKey',
+      }
+      // 向 iframe “中转页面”发送消息
+      ifameWin.postMessage(request, '*')
+    }
 
-		let count = 0
-		function handleSend () {
-			let data = {
-				method: 'setItem',
-				content: `来自 client-2 消息：${count++}`,
-			}
-			ifameWin.postMessage(data, '*')
-		}
-
-		function handleGet () {
-			let data = {
-				method: 'getItem',
-			}
-			ifameWin.postMessage(data, '*')
-		}
-
-		window.addEventListener('message', function (e) {
-			console.log('client 2 获取到数据啦：', e.data)
-		})
-	</script>
+    // 监听 iframe “中转页面”返回的消息
+    window.addEventListener('message', function (e) {
+      console.log('client 2 获取到数据啦：', e.data)
+    })
+  </script>
 </body>
 </html>

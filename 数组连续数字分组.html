@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>数组分组</title>
+</head>
+<body>
+<script type="text/javascript">
+  let arr = [2, 10, 3, 4, 5, 11, 10, 11, 20]
+
+  const solution = (arr, gap = 1) => {
+    let result = []
+    let group = []
+
+    // 去重 & 从小到大排序
+    let list = Array.from(new Set(arr)).sort((a, b) => a -b)
+
+    for (let i = 0; i < list.length; i++) {
+      let prevItem = list[i - 1]
+      let item = list[i]
+
+      // 利用数组是引用类型的特性进行分组
+      if (prevItem !== undefined && item - prevItem === gap) {
+        group.push(item)
+      } else {
+        group = []
+        group.push(item)
+        result.push(group)
+      }
+    }
+
+    return result
+  }
+
+  // 输出
+  let r = solution(arr, 1)
+  console.log('r: ', r)
+</script>
+</body>
+</html>

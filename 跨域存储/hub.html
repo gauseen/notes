@@ -1,29 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>hub</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>hub</title>
 </head>
 <body>
-	<script>
-		window.addEventListener('message', function (e) {
-			let { method, content } = e.data
-			let map = {
-				setItem: () => {
-					window.localStorage['setItem']('hub-key', content)
-				},
-				getItem: () => {
-					let content = window.localStorage['getItem']('hub-key')
-					// 把获取的数据，传递给父级窗口
-					window.parent.postMessage(content, '*')
-					// console.log('hub-key content: ', content)
-				},
-			}
+  <script>
+    // 映射关系
+    let map = {
+      setItem: (key, value) => window.localStorage['setItem'](key, value),
+      getItem: (key) => window.localStorage['getItem'](key),
+    }
 
-			map[method]()
-		})
-	</script>
+    // “中转页面”监听 ifameWin.postMessage() 事件
+    window.addEventListener('message', function (e) {
+      let { method, key, value } = e.data
+      // 处理对应的存储方法
+      let result = map[method](key, value)
+      // 返回给当前 client 的数据
+      let response = {
+        result,
+      }
+      // 把获取的数据，传递给 client 窗口
+      window.parent.postMessage(response, '*')
+    })
+  </script>
 </body>
 </html>

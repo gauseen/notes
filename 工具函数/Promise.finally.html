@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Promise.finally</title>
+</head>
+<body>
+<script type="text/javascript">
+  Promise.prototype.finally = function (callback) {
+
+    // 获取 promise 构造函数
+    let P = this.constructor
+
+    return this.then(
+      value => P.resolve(callback()).then(() => value),
+      reason => P.resolve(callback).then(() => { throw reason })
+    )
+  }
+</script>
+</body>
+</html>
