@@ -17,17 +17,13 @@
       height: 100px;
     }
     .item {
-      border: 1px solid #111;
+      /*border: 1px solid #111;*/
+      background-color: yellow;
       height: 60px;
-      width: 60px;
+      width: 33.33%;
+      float: left;
     }
-    .item1 {
-      
-      position: relative;
-      left: 50px;
-      top: 10px;
-      /*margin-left: -50%;*/
-    }
+
   </style>
 </head>
 <body>
@@ -39,29 +35,26 @@
   <div class="item">
     text2 text2 
   </div>
+
+  <div class="item">
+    text3 text3
+  </div>
 </div>
 
+<textarea style="font-size: 30px;" cols="10" rows="10"></textarea>
 <script type="text/javascript">
-  let str = '1,2,3,5,7,8,6,10'
-  let arr = str.split(',')
-  let left = 0
-  let result = ''
-
-  for (let i = 0; i < arr.length; i++) {
-    
-    let right = i + 1
-    let itemLeft = arr[left]
-    let itemCurrent = arr[i]
-    let itemRight = arr[right]
-    let hasComma = i !== arr.length - 1 ? ',' : ''
-
-    if (itemRight - itemCurrent !== 1) {
-      result += left === i ? `${itemCurrent}${hasComma}` : `${itemLeft}~${itemCurrent}${hasComma}`
-      left = right
-    }
+  window.onerror = function (e) {
+    console.log('------onerror: ', e)
   }
 
-  console.log('result: ', result)
+  try {
+    a
+  } catch (e) {
+    console.log('catch: ', e)
+  } finally {
+    // throw new Error('错了')
+    console.log('finally: ', )
+  }
 </script>
 </body>
 </html>

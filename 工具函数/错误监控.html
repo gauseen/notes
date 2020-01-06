@@ -11,9 +11,27 @@
 
 <script type="text/javascript">
   // 由于网络请求异常不会事件冒泡，因此必须在捕获阶段监听静态资源加载错误
+  // 捕获 throw 出来的错误
+  // 没有被 catch 的错误
   window.addEventListener('error', function (e) {
-    console.log('error e: ', e)
+    console.log('=== onerror e ===: ', e.message)
   }, true)
+
+  // 捕获 promise 没有 catch 的错误
+  window.addEventListener('unhandledrejection', function (e) {
+    console.log('=== error unhandlereject ===: ', e)
+  })
+
+  // try catch 无法捕获 try 内的异步错误事件
+  try {
+    setTimeout(() => {
+      // throw new Error('措辞啊')
+      aaa
+    }, 0)
+  } catch (e) {
+    alert('catch 到了！')
+  }
+
 
   window.addEventListener("beforeunload", function (e) {
     var confirmationMessage = "\o/";
