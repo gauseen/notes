@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>redux-test</title>
+</head>
+<body>
+<script src="./index.js"></script>
+<script>
+  const defaultState = {
+    name: 'test--',
+    count: 0,
+  }
+
+  const store = createStore(reducer)
+
+  function reducer (state = defaultState, action) {
+    let { type, payload } = action
+
+    switch (type) {
+      case 'add':
+        return { ...state, count: ++state.count }
+      case 'sub':
+        return { ...state, count: --state.count }
+      default:
+        return { ...state }
+    }
+  }
+
+  let initState = store.getState()
+  console.log('initState: ', initState)
+
+  store.subscribe(() => {
+    console.log('changed')
+  })
+
+  store.dispatch({
+    type: 'add',
+    payload: '',
+  })
+
+  console.log('add: ', store.getState())
+</script>
+</body>
+</html>

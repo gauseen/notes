@@ -61,6 +61,25 @@
 
   let out2 = flatObj(entry2)
   console.log('out2: ', out2)
+
+
+
+
+  let arr = ['a', 'b', 'c']
+  let prev = null
+  
+  while (key = arr.pop()) {
+    let curr = {}
+
+    if (prev) {
+     curr.chilren = prev
+    }
+
+    curr.value = key
+    prev = curr
+  }
+
+  console.log('pop prev: ', prev)
 </script>
 </body>
 </html>

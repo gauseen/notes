@@ -5,6 +5,34 @@
   <title>vue 响应式原理</title>
 </head>
 <body>
+  <section>
+    <input type="text" id="inputProxy">
+    <button onclick="handleClick()">but</button>
+    <p id="display"></p>
+  </section>
+
+<script>
+  let data = {
+    text: 'text',
+  }
+  let proxyData = defineReactive2(data)
+  document.querySelector('#inputProxy').addEventListener('input', (e) => {
+    proxyData.text = e.target.value
+  })
+
+
+  function defineReactive2 (data) {
+    let displayEle = document.querySelector('#display')
+    return new Proxy(data, {
+      set (target, key, value, proxy) {
+        displayEle.innerHTML = value
+        console.log(value)
+        Reflect.set(target, key, value, proxy)
+      }
+    })
+  }
+</script>
+
 <script>
 function defineReactive (data, key, val) {
   let deps = []
@@ -60,10 +88,7 @@ o.age = '26'
 // delete o.name
 
 console.log(o)
-</script>
 
-<script>
-  
 </script>
 </body>
 </html>

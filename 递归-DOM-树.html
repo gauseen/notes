@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>遍历 DOM 树</title>
+</head>
+
+<body>
+  <section>
+    <div>
+      <h1>ppp</h1>
+    </div>
+  </section>
+
+  <script>
+    let htmlEle = document.querySelector('html')
+    let likeArrToArr = (likeArr) => Array.from(likeArr)
+
+    let traversalAllElement = (ele) => {
+      console.log('ele tagName: ', ele.tagName.toLowerCase())
+
+      let children = ele.children
+      if (children.length) {
+        children = likeArrToArr(children)
+        for (node of children) {
+          traversalAllElement(node)
+        }
+      }
+    }
+
+    traversalAllElement(htmlEle)
+  </script>
+</body>
+
+</html>

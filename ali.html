@@ -11,20 +11,18 @@
 
 
 const normalize = (str) => {
-  let obj = {}
-  let current = obj
-  
-  let list = str.split('[').filter(Boolean).map(item => item.replace(/([a-z]+).*/g, '$1'))
-  let child = 'children'
+  let result = {}
+  let current = result
+  let list = str.match(/\w+/g)
 
-  while (key = list.shift( )) {
-    if (!current[child]) {
-      current[child] = { value: key, }
-    }
-    current = current[child]
+  while (key = list.shift()) {
+    current.value = key
+    if (list.length === 0) break
+    current.children = {}
+    current = current.children
   }
 
-  return obj
+  return result
 }
 
 console.log(normalize('abc'))

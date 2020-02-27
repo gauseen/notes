@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>汉诺塔</title>
+</head>
+<body>
+<script type="text/javascript">
+  function hanoid (num, a, b, c) {
+    if (num <= 0) return
+    // a --> b
+    hanoid(num - 1, a, c, b)
+    move(a, c)
+    // b --> c
+    hanoid(num - 1, b, a, c)
+
+    // hanoid(num - 1, a, c, b)
+    // move(a, c)
+    // hanoid(num - 1, a, b, c)
+  }
+
+  hanoid(3, 'a', 'b', 'c')
+
+  function move (a, b) {
+    console.log(`${a} --> ${b}`)
+  }
+</script>
+</body>
+</html>

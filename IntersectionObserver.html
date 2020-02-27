@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>交叉观察者</title>
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      display: flex;
+      background-color: #ccc;
+    }
+
+    nav span {
+      line-height: 50px;
+      flex: 1;
+      text-align: center;
+    }
+
+    .section-nav {
+      text-align: center;
+      height: 100vh;
+      border: 2px solid #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .section-nav > h1 {
+      border: 1px solid red;
+      padding: 10 20px;
+    }
+
+    .nav__active {
+      background-color: red;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span>nav-1</span>
+  <span>nav-2</span>
+  <span>nav-3</span>
+</nav>
+
+<section class="section-nav">
+  <h1>01</h1>
+</section>
+
+<section class="section-nav">
+  <h1>02</h1>
+</section>
+
+<section class="section-nav">
+  <h1>03</h1>
+</section>
+
+<script type="text/javascript">
+  let sectionNavEle = document.querySelectorAll('.section-nav > h1')
+
+  let observer = new IntersectionObserver((entries) => {
+    
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // console.log('entry: ', entry)
+        console.log('intersectionRatio: ', entry.intersectionRatio)
+        console.dir(entry.target.innerHTML)
+      }
+    })
+  })
+
+  sectionNavEle.forEach(ele => {
+    observer.observe(ele)
+  })
+  
+</script>
+</body>
+</html>

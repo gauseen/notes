@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>get file</title>
+</head>
+<body>
+
+<!-- input 文件上传 -->
+<div>
+  <input type="file" id="file1" name="img1">
+</div>
+
+<!-- 文件拖放 -->
+<div>
+  <div id="output" style="min-height: 200px; border: 1px solid black;">
+     将文件拖放到这里
+  </div>
+</div>
+
+<div id="convasDiv">
+  <canvas width="300" height="300"></canvas>
+  <button>canvas 生成图片</button>
+</div>
+
+<div>
+  <canvas width="1" height="1" id="onePx"></canvas>
+</div>
+
+<div>
+  <img id="img" src="" alt="测试图片显示">
+</div>
+
+<div>
+  一像素黑色：
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=">
+</div>
+
+<script type="text/javascript">
+  const $ = (arg) => document.querySelector(arg)
+
+  $('#file1').addEventListener('change', async e => {
+    let file = e.target.files[0]
+    let s1 = file.slice(2, 100)
+    console.log('s1: ', s1)
+    console.log('file: ', file)
+
+    // let binaryFile = await fileReader(file)
+    // console.log('binaryFile：', binaryFile)
+    // let url = URL.createObjectURL(file)
+    // console.log('file change； ', url)
+    // fetch(url).then(res => res.blob()).then(blob => {
+    //   console.log(blob)
+    // })
+  })
+
+  // ondragover 事件规定在何处放置被拖动的数据
+  $('#output').addEventListener('dragover', e => {
+    e.preventDefault()
+    console.log('drag: ', e)
+  })
+
+  $('#output').addEventListener('drop', e => {
+    e.stopPropagation()
+    e.preventDefault()
+    console.log('drop: ', e)
+  })
+
+  let imgUrl = 'https://s3.cn-north-1.amazonaws.com.cn/s3-044-yimi-crm-uat-bjs/crm/default_wechatGoodImg_b85f127c71500cc6367b4e19b3dcbad3.jpg'
+
+  let imgUrl2 = 'https://s3.cn-north-1.amazonaws.com.cn/s3-044-yimi-crm-uat-bjs/crm/1_image_4fac8eaed00ad2432b0200e903b20a92.jpg'
+  // canvas
+  $('#convasDiv button').addEventListener('click', async e => {
+    let convas = $('canvas')
+    var ctx = convas.getContext('2d')
+    let img = await fetchImg(imgUrl)
+    ctx.drawImage(img, -700, -500)
+
+    // let dataUrl = convas.toDataURL()
+    // let base64 = dataUrl
+    // fetch(dataUrl).then(res => res.blob()).then(blob => {
+    //   console.log('===: ', URL.createObjectURL(blob))
+    // })
+
+    // convas.toBlob((blob) => {
+    //   let url = URL.createObjectURL(blob)
+    //   fetch(url).then(res => res.blob()).then(blob => {
+    //     console.log(blob)
+    //   })
+    //   console.log('blob: ', url)
+    //   // downloadFile(blob)
+    // })
+    
+    // console.log('dataUrl: ', dataUrl)
+
+    // convas.toBlob(blob => {
+    //   console.log('blob: ', blob)
+    //   let file = new File([blob], 'imgFromBlob')
+    //   $('#img').src = URL.createObjectURL(blob)
+    //   console.log('blob-file: ', file)
+    // })
+    
+
+    // 火狐浏览器专用
+    // let asFile = convas.mozGetAsFile('imgName')
+    // console.log('asFile: ', asFile)
+  })
+
+  function onePx () {
+    let canvasOnePx = $('#onePx')
+    let ctx = canvasOnePx.getContext('2d')
+    ctx.fillStyle = 'black'
+    ctx.fillRect(0, 0, 1, 1)
+    let onePxBase64 = canvasOnePx.toDataURL()
+    console.log('onePxBase64: ', onePxBase64)
+  }
+
+  onePx()
+
+  // let hiBlob = new Blob([`<h1>Hi gauseen!<h1>`], { type: 'text/html' })
+  // let hiUrl = URL.createObjectURL(hiBlob)
+  // downloadFile(hiBlob, 'testhtml')
+  // console.log('hiUrl: ', hiUrl)
+
+  // 下载文件
+  function downloadFile (blob, name = 'img') {
+    let url = URL.createObjectURL(blob)
+    let link = document.createElement('a')
+    link.download = name
+    link.href = url
+    link.click()
+    URL.revokeObjectURL(url)
+  }
+  
+  function fetchImg (url) {
+    return new Promise((resolve, reject) => {
+      let img = new Image()
+      img.crossOrigin = 'Anonymous'
+      img.src = url
+      img.onload = () => {
+        resolve(img)
+      }
+    })
+  }
+
+  // fetchImg('C:/Users/18110026/Desktop/images/pos.jpg').then(img => {
+  //   console.dir(img.width)
+  // })
+
+  // imgUrl 图片地址
+  // quality 图片质量 0 ~ 1 之间
+  // type 压缩图片只支持，image/jpeg 或 image/webp 类型
+  async function compressImage (imgUrl, quality = 1, type = 'image/jpeg') {
+    let imgEle = await fetchImg(imgUrl)
+    let canvas = document.createElement('canvas')
+    let cxt = canvas.getContext('2d')
+    // 设置 canvas 宽高
+    let { width, height } = imgEle
+    canvas.setAttribute('width', width || 100)
+    canvas.setAttribute('height', height || 100)
+
+    cxt.drawImage(imgEle, 0, 0)
+    return canvas.toDataURL(type, quality)
+  }
+
+  // let r = compressImage(imgUrl, 0.6).then(res => {
+  //   console.log('compressImage: ', res)
+  // })
+  
+
+  function dataURLtoFile(dataurl, filename) {
+    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+          bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+      while(n--){
+          u8arr[n] = bstr.charCodeAt(n);
+      }
+      return new File([u8arr], filename, {type:mime});
+  }
+
+  function fileReader (blob) {
+    return new Promise((resolve, reject) => {
+      let reader = new FileReader()
+      reader.onloadend = (e) => {
+        resolve(reader.result)
+      }
+      // reader.readAsDataURL(blob)
+      reader.readAsBinaryString(blob)
+    })
+  }
+
+  // https://stackoverflow.com/questions/16968945/convert-base64-png-data-to-javascript-file-objects/16972036
+
+</script>
+</body>
+</html>

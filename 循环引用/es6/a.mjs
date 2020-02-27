@@ -1,10 +1,10 @@
-
-import { b } from './b'
+console.log('a.js 开始')
 
 let a = 'a.mjs'
-
-console.log('在 a.js 之中，b %j', b)
-// export let done = true
-console.log('a.js 执行完毕')
+import { b } from './b'
 
 export { a }
+
+console.log('a.js 结束')
+
+

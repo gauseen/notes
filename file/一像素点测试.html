@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>1 像素</title>
+  <style type="text/css">
+    .onepx {
+      width: 100px;
+      height: 100px;
+      background: url(data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=);
+    }
+    img:first-child{
+      width: 200px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 1像素透明 -->
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="height: 300px;">
+
+<!-- 1像素黑色 -->
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=">
+
+<!-- 证明是黑色 -->
+<div class="onepx"></div>
+
+<div>
+  <img id="img" alt="图片" src="">
+</div>
+
+<div>
+  canvas: 
+  <canvas width="1" height="1"></canvas>
+</div>
+
+<script type="text/javascript">
+  let onepx = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='
+
+  // let hiBlob = new Blob([`<h1>Hi gauseen!<h1>`], { type: 'text/html' })
+  // let hiUrl = URL.createObjectURL(hiBlob)
+  // console.log('hiUrl: ', hiUrl)
+
+  window.onload = () => {
+    (async () => {
+      let canvasEle = document.querySelector('canvas')
+      let cxt = canvasEle.getContext('2d')
+      let img = await fetchImg(onepx)
+      cxt.drawImage(img, 0, 0)
+      let imageData = cxt.getImageData(0, 0, canvasEle.width, canvasEle.height)
+      console.log('imageData: ', imageData)
+      // imageData 放回画布
+      cxt.putImageData(imageData, 0, 0)
+    })()
+  }
+  
+ 
+
+  function fetchImg (url) {
+    return new Promise((resolve, reject) => {
+      let img = new Image()
+      img.crossOrigin = 'Anonymous'
+      img.src = url
+      img.onload = () => {
+        resolve(img)
+      }
+    })
+  }
+
+  
+
+
+  function dataURLtoFile (dataurl, filename) {
+    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+          bstr = atob(arr[1]), n = bstr.length, u8arr = new Int8Array(n);
+          console.log('bstr: ', n, bstr)
+      while(n--){
+          u8arr[n] = bstr.charCodeAt(n);
+      }
+      console.log('u8arr: ', u8arr)
+
+      return new File([u8arr], filename, {type:mime});
+  }
+
+  function fileReader (blob) {
+    return new Promise((resolve, reject) => {
+      let reader = new FileReader()
+      reader.onload = (e) => {
+        resolve(e.target.result)
+      }
+      reader.readAsDataURL(blob)
+    })
+  }
+</script>
+</body>
+</html>

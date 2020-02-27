@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>细胞分裂</title>
+</head>
+<body>
+<script type="text/javascript">
+  // 细胞分裂 有一个细胞 每一个小时分裂一次，一次分裂一个子细胞，第三个小时后会死亡。那么n个小时候有多少细胞？
+
+  const hour = 8
+
+  function allCells (n) {
+    return aCell(n) + bCell(n) + cCell(n);
+  }
+
+  let aC = allCells(hour)
+  console.log(aC)
+
+
+  function aCell (n) {
+    if (n === 1) {
+       return 1;
+    } else {
+        return aCell(n-1) + bCell(n-1) + cCell(n-1);
+    }
+  }
+
+  function bCell (n) {
+    if (n === 1) {
+        return 0;
+    } else {
+       return aCell(n-1);
+    }
+  }
+
+  function cCell (n) {
+    if (n === 1 || n === 2) {
+        return 0;
+    } else {
+      return bCell(n-1);
+    }
+  }
+</script>
+</body>
+</html>
