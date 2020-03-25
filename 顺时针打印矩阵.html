@@ -6,13 +6,37 @@
 <body>
 <script type="text/javascript">
     // 4 x 4 矩阵
-    let matrix = [
-        [1, 2, 3, 4],
-        [5, 6, 7, 8],
-        [9, 10, 11, 12],
-        [13, 14, 15, 16],
-    ]
+    // let matrix = [
+    //     [1, 2, 3, 4],
+    //     [5, 6, 7, 8],
+    //     [9, 10, 11, 12],
+    //     [13, 14, 15, 16],
+    // ]
 
+    let arr = [ [2, 3], 1, [5, 6] ]
+
+    function flat (arr) {
+      return arr.reduce((acc, curr) => {
+        let r = Array.isArray(curr) ? flat(curr) : [curr]
+        return [...acc, ...r]
+      }, [])
+    }
+
+    console.log('flat: ', flat(arr))
+
+    function flat2 (arr) {
+      let result = []
+      for (item of arr) {
+        if (Array.isArray(item)) {
+          result = result.concat(flat2(item))
+        } else {
+          result.push(item)
+        }
+      }
+      return result
+    }
+
+    console.log('flat2: ', flat2(arr))
 </script>
 </body>
 </html>

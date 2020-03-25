@@ -9,7 +9,7 @@
   function instanceof2 (left, right) {
     let proto = left.__proto__
     while (proto) {
-      if (left.__proto__ === right.prototype) {
+      if (proto === right.prototype) {
         return true
       }
 

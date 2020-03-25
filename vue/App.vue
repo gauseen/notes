@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <div id="head"></div>
-    App
+    App- {{count}}
     <TestComponent someKey='value some'>
       <!-- <TestChildComponent></TestChildComponent> -->
     </TestComponent>
@@ -14,6 +14,7 @@
     </div>
 
     <button @click="handlePrint">打印</button>
+    <button @click="count++">累加</button>
   </div>
 </template>
 
@@ -32,6 +33,7 @@
     },
     data () {
       return {
+        count: 0,
         name: 'app name'
       }
     },
@@ -39,9 +41,16 @@
       TestComponent,
       // TestChildComponent,
     },
+    beforeMount () {
+      console.log('-- beforeMount --', this.$el)
+    },
     mounted () {
+      console.log('-- mounted --', this.$el)
       // let child = new (Vue.extend(TestChildComponent))
       // console.log('Vue: ', child.$mount('#head'))
+    },
+    updated () {
+      console.log('-- updated --')
     },
     methods: {
       handlePrint () {

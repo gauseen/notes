@@ -16,6 +16,8 @@
     text: 'text',
   }
   let proxyData = defineReactive2(data)
+  console.log('proxyData: ', proxyData)
+  
   document.querySelector('#inputProxy').addEventListener('input', (e) => {
     proxyData.text = e.target.value
   })

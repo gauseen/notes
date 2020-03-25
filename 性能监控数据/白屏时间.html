@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>白屏时间</title>
+  <link rel="stylesheet" type="text/css" href="./test.css">
+  <link rel="preload" href="./long-task.js" as="script">
+  <!-- js 放 head 里会阻止渲染 -->
+  <!-- <script type="text/javascript" src="./long-task.js"></script> -->
+
+  <style type="text/css">
+    body {
+      background-color: #ccc;
+    }
+    h1 {
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+
+<script type="text/javascript">
+  setTimeout(() => {
+    let t = performance.timing
+    // domInteractive
+    // 文档已被解析，"正在加载"状态结束，但是诸如图像，css，js 文件和框架之类的子资源仍在加载。
+    console.log('domInteractive: ', t.domInteractive - t.navigationStart)
+    console.log('domComplete: ', t.domComplete - t.navigationStart)
+
+    // t.domComplete
+    // 文档和所有子资源已完成加载。表示 load 状态的事件即将被触发
+  }, 2000)
+</script>
+
+<h1> 内联样式 h1 h1 h1</h1>
+<img src="https://weiliicimg6.pstatp.com/weili/l/752984114394038368.webp">
+<h2> 外部引入样式 h2 h2 h2</h2>
+
+  <!-- <script type="text/javascript" src="./long-task.js"></script> -->
+</body>
+</html>

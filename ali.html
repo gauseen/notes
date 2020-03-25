@@ -27,6 +27,24 @@ const normalize = (str) => {
 
 console.log(normalize('abc'))
 console.log(normalize('[abc[bcd[def]]]'))
+
+let obj = {
+  value: 'abc',
+  children: {
+    value: 'bcd',
+    children: {
+      value: 'def'
+    }
+  }
+}
+
+const normalize2 = (obj, result, count) => {
+  let r = result ? `${result}[${obj.value}` : `[${obj.value}`
+  return obj.children ? normalize2(obj.children, r) : r
+
+}
+
+console.log('normalize2: ', normalize2(obj, null, 1))
 </script>
 </body>
 </html>

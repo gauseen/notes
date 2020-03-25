@@ -26,7 +26,7 @@
   try {
     setTimeout(() => {
       // throw new Error('措辞啊')
-      aaa
+      aaa // 被 error 事件捕获到
     }, 0)
   } catch (e) {
     alert('catch 到了！')

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+    var startTime = Date.now()
+  </script>
+  <title>onload</title>
+
+ <!--  <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.css" rel="stylesheet"> -->
+
+  <!-- preload、prefetch 不影 FP FCP FMP 事件 -->
+  <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.css" rel="prefetch" onload="this.rel='stylesheet'">
+</head>
+<body>
+<h1>
+  onload 测试
+</h1>
+
+<script defer src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js?t=6"></script>
+<script defer src="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/js/bootstrap.js?t=6"></script>
+<script defer src="https://cdn.bootcss.com/react/16.13.0/umd/react.development.js?t=6"></script>
+
+<script type="text/javascript">
+  var domLoaded = 0
+  window.addEventListener('DOMContentLoaded', () => {
+    domLoaded = Date.now()
+    console.log('DOMContentLoaded: ', domLoaded - startTime)
+  })
+
+  window.onload = function () {
+    var endTime = Date.now()
+    console.log('onload: ', endTime - startTime)
+    console.log('差值: ', endTime - domLoaded)
+  }
+
+  // 没有 defer async 属性时：
+  // DOMContentLoaded:  3380
+  // onload:  3424
+  // 差值:  44
+
+  // 有 defer 属性时（defer 会在 DOMContentLoaded 事件前执行）：
+  // DOMContentLoaded:  3321
+  // onload:  3366
+  // 差值:  45
+
+  // 有 async 属性时：
+  // DOMContentLoaded:  6
+  // onload:  1925
+  // 差值:  1919
+
+</script>
+</body>
+</html>
